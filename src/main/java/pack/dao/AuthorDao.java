@@ -36,7 +36,7 @@ public class AuthorDao {
         return findById(id).map(it -> {
             repository.delete(it);
             return it;
-        }).orElseThrow(() -> new Exception("Author with the id: "+id+" have not found" ));
+        }).orElseThrow(() -> new Exception("Author with the id: "+id+" have not found." ));
     }
 
 
