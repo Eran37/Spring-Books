@@ -1,0 +1,22 @@
+spring:
+  jpa:
+
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  datasource:
+    username: root
+    password: 1234
+    url: jdbc:mysql://localhost:3306/springbasics1
+      ?useUnicode=true
+      &createDatabaseIfNotExist=true
+      &useJDBCCompliantTimezoneShift=true
+      &useLegacyDatetimeCode=false
+      &serverTimezone=UTC
+
+server:
+  port: 8080
+
+
+
