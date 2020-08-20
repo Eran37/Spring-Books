@@ -41,6 +41,19 @@ public class Book {
         this.author = author;
     }
 
+    public Book(String title, LocalDate publishDate, Double price) {
+        this.title = title;
+        this.publishDate = publishDate;
+        this.price = price;
+    }
+
+    public Book(Long id, String title, LocalDate publishDate, Double price) {
+        this.id = id;
+        this.title = title;
+        this.publishDate = publishDate;
+        this.price = price;
+    }
+
     public Long getId() {
         return id;
     }
