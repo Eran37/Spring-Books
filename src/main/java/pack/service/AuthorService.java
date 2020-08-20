@@ -1,20 +1,19 @@
-package pack.dao;
+package pack.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import pack.entities.Author;
 import pack.repository.AuthorRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Component
-public class AuthorDao {
+@Service
+public class AuthorService {
 
-    private AuthorRepository repository;
+        private AuthorRepository repository;
 
-        @Autowired
-        public AuthorDao(AuthorRepository repository){this.repository = repository;}
+        public AuthorService(AuthorRepository repository){this.repository = repository;}
 
     public Author save(Author author) throws Exception {
         try {

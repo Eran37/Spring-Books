@@ -3,7 +3,7 @@ package pack;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import pack.dao.AuthorDao;
+import pack.service.AuthorService;
 import pack.entities.Author;
 
 //If working with profiles:
@@ -13,7 +13,7 @@ import pack.entities.Author;
 class AuthorTest {
 
     @Autowired
-    private AuthorDao authorDao;
+    private AuthorService authorService;
 
     @Test
     void create() {
@@ -21,7 +21,7 @@ class AuthorTest {
         // firstName+lastName twice;
         Author author1 = new Author("Enosh","Tsur");
         try {
-            Author afterSave = authorDao.save(author1);
+            Author afterSave = authorService.save(author1);
             System.out.println(afterSave);
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,16 +29,28 @@ class AuthorTest {
     }
     @Test
     void findAll() {
-        for (Author author : authorDao.findAll()
+        for (Author author : authorService.findAll()
              ) {
             System.out.println(author);
         }
     }
-
+    @Test
+    void findById() {
+        System.out.println(authorService.findById(1L));
+    }
     @Test
     void deleteById() {
         try {
-            System.out.println(authorDao.deleteById(2L));
+            System.out.println(authorService.deleteById(2L));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    void update() {
+        try {
+            System.out.println(authorService.save(new Author(
+                    1L,"Eran", "Asaraf")));
         } catch (Exception e) {
             e.printStackTrace();
         }
