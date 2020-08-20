@@ -13,8 +13,8 @@ public class AuthorDao {
 
     private AuthorRepository repository;
 
-    @Autowired
-    public AuthorDao(AuthorRepository repository){this.repository = repository;}
+        @Autowired
+        public AuthorDao(AuthorRepository repository){this.repository = repository;}
 
     public Author save(Author author) throws Exception {
         try {
@@ -32,9 +32,12 @@ public class AuthorDao {
         return (List<Author>) repository.findAll();
     }
 
+    //Returns an Optional(). if Author is inside, we can return it. else we get null;
+    //.map() is iterable;
     public Author deleteById (Long id) throws Exception {
         return findById(id).map(it -> {
             repository.delete(it);
+            //if Author exists inside the Optional object and I want it, I need to return 'it';
             return it;
         }).orElseThrow(() -> new Exception("Author with the id: "+id+" have not found." ));
     }
