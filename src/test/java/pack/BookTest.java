@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pack.entities.Book;
+import pack.repository.BookRepository;
 import pack.service.BookService;
 
 import java.time.LocalDate;
@@ -13,6 +14,8 @@ class BookTest {
 
     @Autowired
     private BookService service;
+
+    BookRepository repository;
 
     @Test
     void create() {
@@ -69,6 +72,16 @@ class BookTest {
     @Test
     void findById_lambdaExpression() {
         service.findById(1L).ifPresent(System.out::println);
+    }
+
+    @Test
+    void deleteById() {
+        try {
+            Book deleted = service.deleteById(4L);
+            System.out.println(deleted);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 

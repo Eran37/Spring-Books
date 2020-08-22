@@ -44,4 +44,16 @@ public class BookService {
         return (List<Book>) repository.findAll();
     }
 
+    public Book deleteById(Long id) throws Exception {
+        return findById(id).map(it -> {
+            try {
+                repository.deleteById(id);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            return it;
+        }).orElseThrow(() ->
+                new Exception("Book With ID: " + id + " Is Not Exist"));
+    }
+
 }

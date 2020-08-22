@@ -14,18 +14,25 @@ import javax.transaction.Transactional;
 @Transactional
 @Repository
 public interface BookRepository extends CrudRepository<Book, Long> {
-//-------------------------------------------------------------------------------------------------
+
+//----------------------------------***<JPQL Transactional method>***---------------------------------
+
     //Transactional method (Acceptable in repository interface):
 
-    //Written in JPQL; the description in JPQL refers to objects(more likely with java language) -
-    // not to raws and columns
+    //Written in JPQL - more likely with java language:
+        // the description in JPQL refers to the java objects
+            //  and not to raws columns and tables like standard SQL
+                // - spring boot is going to look for the -ENTITY- -NOT TABLE- (Book b)
 
-    @Modifying // @Modifying means that the method is going to change the DB
-                    // (not only to get data - delete method)
+    @Modifying // @Modifying means that the method is going to CHANGE the DB
+                    // (not only to Query data - delete method)
 
     //(The Query - JPQL language:
         // Java Persistence API Query Language)
     @Query("delete from Book b where b.id = :id")
     void deleteById(@Param("id") Long id);
+
 //-------------------------------------------------------------------------------------------------
+
 }
+
