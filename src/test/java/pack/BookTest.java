@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pack.entities.Book;
-import pack.service.AuthorService;
 import pack.service.BookService;
 
 import java.time.LocalDate;
@@ -54,6 +53,23 @@ class BookTest {
         });
     }
 
+    @Test
+    void findAll() {
+        for (Book book : service.findAll()
+             ) {
+            System.out.println(book);
+        }
+    }
+
+    @Test
+    void findAll_lambdaExpression() {
+        service.findAll().forEach(System.out::println);
+    }
+
+    @Test
+    void findById_lambdaExpression() {
+        service.findById(1L).ifPresent(System.out::println);
+    }
 
 
 }
