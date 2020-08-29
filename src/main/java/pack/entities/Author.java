@@ -1,5 +1,7 @@
 package pack.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -70,6 +72,7 @@ public class Author {
         this.lastName = lastName;
     }
 
+//    @JsonManagedReference
     public List<Book> getBooks() {
         return books;
     }

@@ -1,5 +1,7 @@
 package pack.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -86,9 +88,10 @@ public class Book {
         this.price = price;
     }
 
-    public Author getAuthor() {
-        return author;
-    }
+//    @JsonBackReference
+//    public Author getAuthor() {
+//        return author;
+//    }
 
     public void setAuthor(Author author) {
         this.author = author;

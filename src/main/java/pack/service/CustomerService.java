@@ -20,20 +20,20 @@ public class CustomerService {
         this.bookService = bookService;
     }
 
-    public List<Customer> findAll () {
-        return (List<Customer>) repository.findAll();
-    }
-
-    public Optional<Customer> findById (Long id) {
-        return repository.findById(id);
-    }
-
     public Customer save (Customer customer) throws Exception {
         try {
             return repository.save(customer);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
+    }
+
+    public Optional<Customer> findById (Long id) {
+        return repository.findById(id);
+    }
+
+    public List<Customer> findAll () {
+        return (List<Customer>) repository.findAll();
     }
 
     public Customer deleteById(Long id) throws Exception {
@@ -43,6 +43,28 @@ public class CustomerService {
         }).orElseThrow(() ->
             new Exception("Customer With ID "+id+" Is Not Exist")
         );
+    }
+
+    public void addPurchase(Long customerId, Long bookId) throws Exception{
+        try{
+            findById(customerId).ifPresent(customer ->
+                    bookService.findById(bookId).ifPresent(book -> {
+            if (!customer.getBooks().contains(book)) {
+                customer.getBooks().add(book);
+                repository.save(customer);
+            }
+                    }));
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public void deletePurchase(Long customerId, Long bookId) throws Exception{
+        try {
+            repository.deleteCustomerBook(customerId, bookId);
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
 
 }
