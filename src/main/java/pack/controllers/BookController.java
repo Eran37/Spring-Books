@@ -35,7 +35,8 @@ public class BookController {
     }
 
     @PostMapping("/create")
-    //(Created a new class that contains: authorId & book -> BookAdditionDto(**DTO == DataTransferObject**))
+    //(Created a new class that contains: [authorId & book] for service.create()
+    //      -> BookAdditionDto(**DTO == DataTransferObject**))
     public ResponseEntity create(@RequestBody BookAdditionDto dto) {
         try {
             Book afterSave = service.create(dto.getBook(), dto.getAuthorId());
@@ -44,6 +45,34 @@ public class BookController {
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(afterSave);
 
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity update (@RequestBody BookAdditionDto dto) {
+
+        if (dto.getBook().getId() == null){
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body("In order to update you must provide an ID");
+        }
+        return create(dto);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable("id") Long id ) {
+        try {
+            Book deleted = service.deleteById(id);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(deleted);
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.OK)
