@@ -36,7 +36,8 @@ public class BookController {
     }
 
     @PostMapping("/create")
-    //(Created a new class that contains: [authorId & book] for service.create()
+    //(Because I can use only one RequestBody I,
+    //  created a new class that contains: [authorId & book] for service.create()
     //      -> BookAdditionDto(**DTO == DataTransferObject**))
     public ResponseEntity create(@RequestBody BookAdditionDto dto) {
         try {
