@@ -8,6 +8,7 @@ import pack.entities.Book;
 import pack.entities.BookAdditionDto;
 import pack.service.BookService;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
@@ -79,5 +80,21 @@ public class BookController {
                     .contentType(MediaType.TEXT_PLAIN)
                     .body(e.getMessage());
         }
+    }
+
+    @GetMapping("/findAll")
+    public ResponseEntity findAll () {
+        ArrayList<Book> allBooks;
+        allBooks = (ArrayList<Book>) service.findAll();
+        return allBooks.isEmpty() ?
+                ResponseEntity
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body("No Books In DB")
+                :
+                ResponseEntity
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(allBooks);
     }
 }

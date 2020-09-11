@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pack.entities.Author;
 import pack.service.AuthorService;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 //  http://localhost:7070/author
@@ -86,7 +87,23 @@ public class AuthorController {
         }
     }
 
-    //TODO - findAll
+    @GetMapping("/findAll")
+    public ResponseEntity findAll () {
+        ArrayList<Author> allAuthors;
+        allAuthors = (ArrayList<Author>) service.findAll();
+        return allAuthors.isEmpty() ?
+                ResponseEntity
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body("No Authors In DB")
+                :
+                ResponseEntity
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(allAuthors);
+    }
+
+
     //TODO - BookController + CustomerController
 
 }
