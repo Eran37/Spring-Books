@@ -103,7 +103,4 @@ public class AuthorController {
                     .body(allAuthors);
     }
 
-
-    //TODO - CustomerController
-
 }

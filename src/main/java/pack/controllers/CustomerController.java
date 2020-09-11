@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pack.entities.Customer;
 import pack.service.CustomerService;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
@@ -59,6 +60,37 @@ public class CustomerController {
         return create(customer);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable("id") Long id) {
+        try {
+            Customer deleted = service.deleteById(id);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(deleted);
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body(e.getMessage());
+        }
+    }
 
+    @GetMapping("/findAll")
+    public ResponseEntity findAll() {
+        ArrayList<Customer> all;
+        all = (ArrayList<Customer>) service.findAll();
+        return all.isEmpty() ?
+                ResponseEntity
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body("No Customers On DB")
+                :
+                ResponseEntity
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(all);
+
+    }
 
 }
