@@ -28,6 +28,8 @@ public class Book {
 
     public Book(){}
 
+
+
     public Book(String title, LocalDate publishDate, Double price, Author author, List<Customer> customers) {
         this.title = title;
         this.publishDate = publishDate;
@@ -104,6 +106,7 @@ public class Book {
     public void setCustomers(List<Customer> customers) {
         this.customers = customers;
     }
+
 
     @Override
     public String toString() {
